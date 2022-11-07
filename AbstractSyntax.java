@@ -12,9 +12,17 @@ class Program {
         decpart = d;
         body = b;
     }
-    
-    void display() {
+
+    void printDisplay(String filename) {    // 추가구현, 파일명을 받아서 .output 파일의 도입부 출력
+        System.out.println("Begin parsing... programs/" + filename);
+        System.out.println();
+        System.out.println("Program (abstract syntax): ");
+    }
+    void display(int d) {    // Declarations와 Block의 AbstractSyntaxTree 출력
 		// student exercise
+
+        decpart.display(d + 1);
+        body.display(d + 1);
    	}
 
 }

@@ -31,7 +31,7 @@ public class Lexer {
         col++;
         if (col >= line.length()) {
             try {
-                line = input.readLine( );
+                line = input.readLine();
             } catch (IOException e) {
                 System.err.println(e);
                 System.exit(1);
@@ -85,8 +85,8 @@ public class Lexer {
             case '+': ch = nextChar();
                 return Token.plusTok;
 
-            // - * ( ) { } ; ,  student exercise
-            // - * ( ) { } ; , [ ] 토큰을 반환한다.
+            // - * ( ) { } ; , student exercise
+            // - * ( ) { } ; , 토큰을 반환한다.
             case '-': ch = nextChar();
                 return Token.minusTok;
             case '*': ch = nextChar();
@@ -103,12 +103,6 @@ public class Lexer {
                 return Token.semicolonTok;
             case ',': ch = nextChar();
                 return Token.commaTok;
-
-            case '[': ch = nextChar();
-                return Token.leftBracketTok;
-            case ']': ch = nextChar();
-                return Token.rightBracketTok;
-                
 
             case '&': check('&'); return Token.andTok;
             case '|': check('|'); return Token.orTok;
@@ -137,7 +131,7 @@ public class Lexer {
 
     private boolean isDigit(char c) {
         // student exercise
-        // '0' ~ '9' 사이의 문자면 true 반환, 아니면 false 반환
+        // 10진수인지 판단, '0' ~ '9' 사이의 문자면 true, 아니면 false 반환
         if ('0' <= c && c <= '9')
             return true;
         else
