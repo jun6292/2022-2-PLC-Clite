@@ -4,14 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b696c93-3a79-4c93-b224-bd43bc1b4953" name="Changes" comment="Clite">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9b696c93-3a79-4c93-b224-bd43bc1b4953" name="Changes" comment="Parser">
+      <change afterPath="$PROJECT_DIR$/Assignment.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binary.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Block.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BoolValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CharValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Conditional.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Declaration.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Declarations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Expression.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FloatValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IntValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Loop.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Operator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Parser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Program.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Skip.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Statement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Type.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Unary.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Value.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Variable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AbstractSyntax.java" beforeDir="false" afterPath="$PROJECT_DIR$/AbstractSyntax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Lexer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/factorial.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test Programs/factorial.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/hello.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Test Programs/hello.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +75,21 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Lexer">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Parser">
     <configuration name="Lexer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Lexer" />
+      <module name="Clite - seed" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Parser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Parser" />
       <module name="Clite - seed" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -73,6 +104,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Parser" />
         <item itemvalue="Application.Lexer" />
         <item itemvalue="Application.Token" />
       </list>
@@ -93,7 +125,12 @@
       <workItem from="1667490338407" duration="9265000" />
       <workItem from="1667784294223" duration="4568000" />
       <workItem from="1667797466835" duration="1170000" />
-      <workItem from="1667798663921" duration="17622000" />
+      <workItem from="1667798663921" duration="26583000" />
+      <workItem from="1667849524128" duration="1063000" />
+      <workItem from="1667874487680" duration="14674000" />
+      <workItem from="1667899455918" duration="3845000" />
+      <workItem from="1667905576698" duration="6725000" />
+      <workItem from="1667922177151" duration="386000" />
     </task>
     <task id="LOCAL-00001" summary="Clite">
       <created>1667490557837</created>
@@ -109,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667490730999</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Parser">
+      <created>1667838088936</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667838088936</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,7 +175,8 @@
       <path value="$PROJECT_DIR$/../.." />
     </ignored-roots>
     <MESSAGE value="Clite" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clite" />
+    <MESSAGE value="Parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parser" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
