@@ -5,32 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b696c93-3a79-4c93-b224-bd43bc1b4953" name="Changes" comment="Clite#1">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Binary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Block.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BoolValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CharValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Conditional.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Declaration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Declarations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Expression.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FloatValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IntValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lexer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Operator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Skip.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Statement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TokenType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Value.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Variable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Clite - seed.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AbstractSyntax.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/error.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/factorial.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/factorial.output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/hello.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test Programs/hello.output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TokenType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Assignment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Binary.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Block.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/BoolValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/CharValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Conditional.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Declaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Declarations.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Expression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/FloatValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/IntValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Lexer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Loop.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Operator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Parser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Program.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Skip.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Statement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Token.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/TokenType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Unary.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Value.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Variable.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +91,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.idea" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -130,7 +145,7 @@
       <workItem from="1667874487680" duration="14674000" />
       <workItem from="1667899455918" duration="3845000" />
       <workItem from="1667905576698" duration="6725000" />
-      <workItem from="1667922177151" duration="2020000" />
+      <workItem from="1667922177151" duration="2436000" />
     </task>
     <task id="LOCAL-00001" summary="Clite">
       <created>1667490557837</created>
@@ -160,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667922748144</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Clite#1">
+      <created>1668034647677</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668034647677</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
