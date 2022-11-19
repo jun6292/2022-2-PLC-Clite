@@ -319,7 +319,7 @@ public class Parser {
         return token.type().equals(TokenType.Equals) || token.type().equals(TokenType.NotEqual);
     }
 
-    private boolean isRelationalOp() {
+    private boolean isRelationalOp()  {
         return token.type().equals(TokenType.Less) || token.type().equals(TokenType.LessEqual)
                 || token.type().equals(TokenType.Greater) || token.type().equals(TokenType.GreaterEqual);
     }

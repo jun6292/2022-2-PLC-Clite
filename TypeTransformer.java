@@ -32,23 +32,24 @@ public class TypeTransformer {
         // Unary에 대한 형변환
         if (e instanceof Unary) {
             Unary u = (Unary)e;
-            Type typ = StaticTypeCheck.typeOf(u.term, tm);
-            Expression t = T(u.term, tm);
+            Type typ = StaticTypeCheck.typeOf(u.term, tm);  // Unary에 대한 타입을 저장
+            Expression t = T(u.term, tm);   // type map에 있는 unary term을 선언
 
-            if ((typ == Type.BOOL) && (u.op.NotOp()))
-                return new Unary(u.op.boolMap(u.op.val), t);
-            else if ((typ == Type.FLOAT) && (u.op.NegateOp()))
-                return new Unary(u.op.floatMap(u.op.val), t);
-            else if ((typ == Type.INT) && (u.op.NegateOp()))
-                return new Unary(u.op.intMap(u.op.val), t);
-            else if ((typ == Type.FLOAT) && (u.op.intOp()))
-                return new Unary(u.op.floatMap(u.op.val), t);
-            else if ((typ == Type.CHAR) && (u.op.intOp()))
-                return new Unary(u.op.charMap(u.op.val), t);
-            else if ((typ == Type.INT) && (u.op.floatOp()))
-                return new Unary(u.op.intMap(u.op.val), t);
-            else if ((typ == Type.INT) && (u.op.charOp()))
-                return new Unary(u.op.intMap(u.op.val), t);
+            if ((typ == Type.BOOL) && (u.op.NotOp()))   // unary의 타입이 bool이고 연산자가 ! 일 때
+                return new Unary(u.op.boolMap(u.op.val), t);  // !
+            else if ((typ == Type.FLOAT) && (u.op.NegateOp())) // 타입이 float이고 연산자가 - 일 때
+                return new Unary(u.op.floatMap(u.op.val), t); // FLOAT_NEG -
+            else if ((typ == Type.INT) && (u.op.NegateOp())) // 타입이 int이고 연산자가 - 일 때
+                return new Unary(u.op.intMap(u.op.val), t); // INT_NEG -
+            else if ((typ == Type.FLOAT) && (u.op.intOp())) // 타입이 float이고 연산자가 int()일 때
+                return new Unary(u.op.floatMap(u.op.val), t); // F2I
+            else if ((typ == Type.CHAR) && (u.op.intOp())) // 타입이 char이고 연산자가 int()일 때
+                return new Unary(u.op.charMap(u.op.val), t); // C2I
+            else if ((typ == Type.INT) && (u.op.floatOp())) // 타입이 int이고 연산자가 float()일 때
+                return new Unary(u.op.intMap(u.op.val), t); // I2F
+            else if ((typ == Type.INT) && (u.op.charOp())) // 타입이 int이고 연산자가 char()일 때
+                return new Unary(u.op.intMap(u.op.val), t); // I2C
+            throw new IllegalArgumentException("should never reach here");
         }
         throw new IllegalArgumentException("should never reach here");
     }
@@ -104,16 +105,22 @@ public class TypeTransformer {
     public static void main(String args[]) {
         Parser parser  = new Parser(new Lexer(args[0]));
         Program prog = parser.program();
-        prog.display(0);           // student exercise
+        System.out.println("Begin parsing... programs/" + args[0]);
+        System.out.println();
+        prog.display(0);    // student exercise
         System.out.println("\nBegin type checking...");
         System.out.println("Type map:");
         TypeMap map = StaticTypeCheck.typing(prog.decpart);
         map.display();    // student exercise
         StaticTypeCheck.V(prog);
         Program out = T(prog, map);
-        System.out.println("Output AST");
+        System.out.println("\nTransformed Abstract Syntax Tree\n");
         out.display(0);    // student exercise
-
+        // 타입 에러가 발생해도 모든 타입 에러를 체크하고 몇 개의 타입 에러가 발생했는지 출력하고 프로그램 종료
+        if (StaticTypeCheck.typeError >0) {
+            System.out.println(StaticTypeCheck.typeError + " error occurred");
+            System.exit(1);
+        }
     } //main
 
     } // class TypeTransformer

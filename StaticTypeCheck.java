@@ -8,14 +8,13 @@ import java.util.*;
 
 
 public class StaticTypeCheck {
-    public static int typeError = 0;    // typeError의 개수 리턴
     public static TypeMap typing (Declarations d) {
         TypeMap map = new TypeMap();
         for (Declaration di : d) 
             map.put (di.v, di.t);
         return map;
     }
-
+    public static int typeError = 0;    // typeError의 개수 리턴
     public static void check(boolean test, String msg) {
         if (test)  return;
         System.err.println(msg);
@@ -145,32 +144,32 @@ public class StaticTypeCheck {
         if (s instanceof Block) {
             Block b = (Block) s;
             for (int i = 0; i < b.members.size(); i++) {
-                V((Statement)(b.members.get(i)), tm);
+                V((Statement)(b.members.get(i)), tm);   // 블록의 멤버들이 타당한지 검사
             }
             return;
         }
         // statement가 Conditional일 때 구현
         if (s instanceof Conditional) {
             Conditional c = (Conditional) s;
-            V(c.test, tm);
+            V(c.test, tm);  // if 문의 test 문장이 타당한지 검사
             Type testType = typeOf(c.test, tm);
-            if (testType == Type.BOOL) {
-                V(c.thenbranch, tm);
-                V(c.elsebranch, tm);
+            if (testType == Type.BOOL) {    // test 문장이 bool type일 때 (bool type이면 에러 X)
+                V(c.thenbranch, tm);    // then이 타당한지 검사
+                V(c.elsebranch, tm);    // else가 타당한지 검사
             }
             else
-                check(false, "non-bool type in conditional test: " + c.test);
+                check(false, "non-bool type in conditional test: " + c.test);   // test 문장이 bool이 아니면 type error
             return;
         }
         // statement가 Loop일 때 구현
         if (s instanceof Loop) {
             Loop l = (Loop) s;
-            V(l.test, tm);
+            V(l.test, tm);  // while 문의 test 문장이 타당한지 검사
             Type testType = typeOf(l.test, tm);
-            if (testType == Type.BOOL) {
-                V(l.body, tm);
+            if (testType == Type.BOOL) {    // test 문장이 bool type일 때 (bool type이면 에러 X)
+                V(l.body, tm);  // while 문의 body가 타당한지 검사
             } else
-                check(false, "non-bool type in loop test: " + l.test);
+                check(false, "non-bool type in loop test: " + l.test);  // test 문장이 bool이 아니면 type error
             return;
         }
         throw new IllegalArgumentException("should never reach here");
@@ -179,13 +178,16 @@ public class StaticTypeCheck {
     public static void main(String args[]) {
         Parser parser  = new Parser(new Lexer(args[0]));
         Program prog = parser.program();
+        System.out.println("Begin parsing... programs/" + args[0]);
+        System.out.println();
         prog.display(0);           // student exercise, Program(abstract syntax) 출력
         System.out.println("\nBegin type checking...");
         System.out.println("Type map:");
         TypeMap map = typing(prog.decpart);
         map.display();   // student exercise, type map 출력
         V(prog);
-        if (typeError > 0) {    // typeError 발생 횟수를 출력하고 프로그램 종료
+        // 타입 에러가 발생해도 모든 타입 에러를 체크하고 몇 개의 타입 에러가 발생했는지 출력하고 프로그램 종료
+        if (typeError > 0) {
             System.out.println(typeError + " errors occurred");
             System.exit(1);
         }
