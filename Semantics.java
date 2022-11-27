@@ -190,6 +190,6 @@ public class Semantics {
         State state = semantics.M(out);
         System.out.println("\nBegin interpreting...programs/"+args[0]+"\n");
         System.out.println("Final State");
-        state.display( );  // student exercise
+        state.display();  // student exercise
     }
 }
