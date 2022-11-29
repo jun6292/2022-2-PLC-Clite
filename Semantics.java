@@ -35,27 +35,27 @@ public class Semantics {
   
     State M (Block b, State state) {
         // student exercise
-        for (Statement s : b.members)   // 블록의 멤버들에 접근해서
-            state = M(s, state);    // statement가
-        return state;
+        for (Statement s : b.members)   // Block 내부의 모든 Statement에 대해
+            state = M(s, state);    // Statement의 해당하는 하위 클래스로 캐스팅한 의미를 state에 저장
+        return state;   // 갱신된 state를 반환
     }
   
     State M (Conditional c, State state) {
         // student exercise
         // The meaning of conditional is:
-        if (M(c.test, state).boolValue())
-            return M(c.thenbranch, state);  // if the test is true, the meaning of the thenbranch
-        else
-            return M(c.elsebranch, state);  // otherwise, the meaning of the elsebranch
+        if (M(c.test, state).boolValue())   // Expression test의 의미가 true라면,
+            return M(c.thenbranch, state);  // Conditional의 meaning은 thenbranch이다.
+        else    // Expression test가 false라면,
+            return M(c.elsebranch, state);  // Conditinal의 meaning은 elsebranch이다.
     }
   
     State M (Loop l, State state) {
         // student exercise
         // The meaning of loop is:
-        if (M(l.test, state).boolValue())   // if the test is true, the meaning of the body
-            return M(l, M(l.body, state));
-        else
-            return state;   // otherwise, the meaning of the state
+        if (M(l.test, state).boolValue())   // Expression test의 의미가 true라면,
+            return M(l, M(l.body, state));  // loop의 meaning은 loop body인데, state가 재귀적으로 입력으로 들어간다.
+        else    // Expression test의 의미가 false라면,
+            return state;   // 입력으로 받은 state 반환한다.
     }
 
     Value applyBinary (Operator op, Value v1, Value v2) {
@@ -121,7 +121,7 @@ public class Semantics {
 
         if (op.val.equals(Operator.BOOL_EQ)) 
             return new BoolValue(v1.boolValue( ) == v2.boolValue( ));
-        if (op.val.equals(Operator.BOOL_LE)) 
+        if (op.val.equals(Operator.BOOL_NE))
             return new BoolValue(v1.boolValue( ) != v2.boolValue( ));
         /*if (op.val.equals(Operator.BOOL_LT)) 
             return new BoolValue(v1.boolValue( ) <  v2.boolValue( ));
@@ -155,21 +155,21 @@ public class Semantics {
         throw new IllegalArgumentException("should never reach here");
     } 
 
-    Value M (Expression e, State state) {
+    Value M (Expression e, State state) {   // Expression x State --> Value
         if (e instanceof Value) 
             return (Value)e;
         if (e instanceof Variable) 
             return (Value)(state.get(e));
         // student exercise
         //... for Binary
-        if (e instanceof Binary) {
+        if (e instanceof Binary) {  // 이항 연산자라면 applyBinary를 통해 얻은 값을 반환한다.
             Binary b = (Binary) e;
-            return applyBinary(b.op, M(b.term1, state), M(b.term2, state));
+            return applyBinary(b.op, M(b.term1, state), M(b.term2, state)); //
         }
         //... for Unary
-        if (e instanceof Unary) {
+        if (e instanceof Unary) {   // 단항 연산자라면 applyUnary를 통해 얻은 값을 반환한다.
             Unary u = (Unary) e;
-            return applyUnary(u.op, M(u.term, state));
+            return applyUnary(u.op, M(u.term, state));  //
         }
         throw new IllegalArgumentException("should never reach here");
     }
