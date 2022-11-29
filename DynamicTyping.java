@@ -10,11 +10,13 @@ public class DynamicTyping extends Semantics {
     State M (Program p) { 
         return M (p.body, new State( )); 
     }
-  
+
+
+
     Value applyBinary (Operator op, Value v1, Value v2) {
         StaticTypeCheck.check( v1.type( ) == v2.type( ),
                                "mismatched types");
-        if (op.ArithmeticOp( )) {
+        if (op.ArithmeticOp( )) {   // 산술 연산자일 때
             if (v1.type( ) == Type.INT) {
                 if (op.val.equals(Operator.PLUS)) 
                     return new IntValue(v1.intValue( ) + v2.intValue( ));
@@ -27,9 +29,17 @@ public class DynamicTyping extends Semantics {
             }
             else if (v1.type( ) == Type.FLOAT) {
                 // student exercise
+                if (op.val.equals(Operator.PLUS))   // 연산자가 +일 때
+                    return new FloatValue(v1.floatValue() + v2.floatValue());   // float term1 + float term2의 float 값 반환
+                if (op.val.equals(Operator.MINUS))  // 연산자가 -일 때
+                    return new FloatValue(v1.floatValue() - v2.floatValue());   // float term1 - float term2의 float 값 반환
+                if (op.val.equals(Operator.TIMES))  // 연산자가 *일 때
+                    return new FloatValue(v1.floatValue() * v2.floatValue());   // float term1 * float term2의 float 값 반환
+                if (op.val.equals(Operator.DIV))    // 연산자가 /일 때
+                    return new FloatValue(v1.floatValue() / v2.floatValue());   // float term1 / float term2의 float 값 반환
             }
         }
-        else if (op.RelationalOp())
+        else if (op.RelationalOp()) // 관계 연산자일 때
         {
             if (v1.type( ) == Type.INT) {
                 if (op.val.equals(Operator.LT)) 
@@ -47,6 +57,18 @@ public class DynamicTyping extends Semantics {
             }
             else if (v1.type( ) == Type.FLOAT) {
                 // student exercise
+                if (op.val.equals(Operator.LT)) // < 연산자 일 때
+                    return new BoolValue(v1.floatValue( ) < v2.floatValue( ));  // float term 1 < float term 2 의 bool value 반환
+                if (op.val.equals(Operator.LE)) // <= 연산자 일 때
+                    return new BoolValue(v1.floatValue( ) <= v2.floatValue( )); // float term 1 <= float term 2 의 bool value 반환
+                if (op.val.equals(Operator.EQ)) // == 연산자 일 때
+                    return new BoolValue(v1.floatValue( ) == v2.floatValue( )); // float term 1 == float term 2 의 bool value 반환
+                if (op.val.equals(Operator.NE)) // != 연산자 일 때
+                    return new BoolValue(v1.floatValue( ) != v2.floatValue( )); // float term 1 != float term 2 의 bool value 반환
+                if (op.val.equals(Operator.GT)) // > 연산자 일 때
+                    return new BoolValue(v1.floatValue( ) > v2.floatValue( ));  // float term 1 > float term 2 의 bool value 반환
+                if (op.val.equals(Operator.GE)) // >= 연산자 일 때
+                    return new BoolValue(v1.floatValue( ) >= v2.floatValue( )); // float term 1 >= float term 2 의 bool value 반환
             }
         }
         else if (op.BooleanOp())
@@ -90,18 +112,25 @@ public class DynamicTyping extends Semantics {
         }
         // student exercise
         //... for Binary
+        if (e instanceof Binary) {  // Expression이 Binary일 때
+            Binary b = (Binary) e;
+            return applyBinary(b.op, M(b.term1, sigma), M(b.term2, sigma)); // applyBinary를 통해 얻은 값을 반환
+        }
         //... for Unary
-        
+        if (e instanceof Unary) {   // Expression이 Unary일 때
+            Unary u = (Unary) e;
+            return applyUnary(u.op, M(u.term, sigma));  // applyUnary를 통해 얻은 값을 반환한다.
+        }
         throw new IllegalArgumentException("should never reach here");
     }
 
     public static void main(String args[]) {
         Parser parser  = new Parser(new Lexer(args[0]));
         Program prog = parser.program();
-        prog.display();    
+        prog.display(0);
         DynamicTyping dynamic = new DynamicTyping( );
         State state = dynamic.M(prog);
         System.out.println("Final State");
-        state.display( );   // student exercise
+        state.display();   // student exercise
     }
 }
