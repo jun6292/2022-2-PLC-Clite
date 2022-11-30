@@ -121,7 +121,7 @@ public class Semantics {
 
         if (op.val.equals(Operator.BOOL_EQ)) 
             return new BoolValue(v1.boolValue( ) == v2.boolValue( ));
-        if (op.val.equals(Operator.BOOL_NE))
+        if (op.val.equals(Operator.BOOL_NE))    // NE가 맞는 것 같다
             return new BoolValue(v1.boolValue( ) != v2.boolValue( ));
         /*if (op.val.equals(Operator.BOOL_LT)) 
             return new BoolValue(v1.boolValue( ) <  v2.boolValue( ));
@@ -164,12 +164,12 @@ public class Semantics {
         //... for Binary
         if (e instanceof Binary) {  // 이항 연산자라면 applyBinary를 통해 얻은 값을 반환한다.
             Binary b = (Binary) e;
-            return applyBinary(b.op, M(b.term1, state), M(b.term2, state)); //
+            return applyBinary(b.op, M(b.term1, state), M(b.term2, state));
         }
         //... for Unary
         if (e instanceof Unary) {   // 단항 연산자라면 applyUnary를 통해 얻은 값을 반환한다.
             Unary u = (Unary) e;
-            return applyUnary(u.op, M(u.term, state));  //
+            return applyUnary(u.op, M(u.term, state));
         }
         throw new IllegalArgumentException("should never reach here");
     }

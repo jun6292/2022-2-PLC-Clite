@@ -11,8 +11,6 @@ public class DynamicTyping extends Semantics {
         return M (p.body, new State( )); 
     }
 
-
-
     Value applyBinary (Operator op, Value v1, Value v2) {
         StaticTypeCheck.check( v1.type( ) == v2.type( ),
                                "mismatched types");

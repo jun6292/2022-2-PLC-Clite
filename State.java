@@ -16,18 +16,11 @@ public class State extends HashMap<Variable, Value> {
         return this;
     }
 
-    // State를 입력 받아서 State에 있는 모든 Entry를 map에 저장 한 뒤 자기 자신을 반환
-    public State onion(State t) {
-        for (Variable key : t.keySet())
-            put(key, t.get(key));
-        return this;
-    }
-
     void display() {
         // student exercise
         // state를 출력
         System.out.print("{ ");
-        Iterator<Variable> it = this.keyset().iterator();   // state의 key(변수 이름)를 가져온다.
+        Iterator<Variable> it = this.keySet().iterator();   // state의 key(변수 이름)를 가져온다.
         while (it.hasNext()) {  // Variable을 key로 value를 값으로
             Variable key = (Variable) it.next();
             System.out.print("<" + key + ", " + this.get(key) + ">");   // state의 <변수 이름, 값> 형태로 출력
