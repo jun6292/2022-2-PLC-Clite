@@ -38,6 +38,9 @@ public class Token {
     public static final Token divideTok = new Token(TokenType.Divide, "/");
     public static final Token andTok = new Token(TokenType.And, "&&");
     public static final Token orTok = new Token(TokenType.Or, "||");
+    // 함수 확장 구현: return, void 토큰 추가
+    public static final Token returnTok = new Token(TokenType.Return, "return");
+    public static final Token voidTok = new Token(TokenType.Void, "void");
 
     private TokenType type;
     private String value = "";
