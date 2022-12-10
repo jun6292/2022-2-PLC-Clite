@@ -4,13 +4,13 @@
 import java.util.*;
 
 class Program {
-    // Program = Declarations decpart ; Block body
-    Declarations decpart;
-    Block body;
+    // Program = Declarations globals; Functions functions
+    Declarations globals;
+    Funtions functions;
 
-    Program (Declarations d, Block b) {
-        decpart = d;
-        body = b;
+    Program (Declarations g, Functions f) {
+        globals = g;
+        functions = f;
     }
 
     void printDisplay(String filename) {    // 파일명을 받아서 .output 파일의 도입부 출력
@@ -19,12 +19,13 @@ class Program {
     }
     void display(int depth) {   // Program의 AbstractSyntaxTree 출력
         // student exercise
-        for (int i = 0; i < depth; ++i) {
+        for (int i = 0; i < depth; i++) {
             System.out.print("  ");
         }
         System.out.println("Program (abstract syntax):");
-        decpart.display(++depth);
-        body.display(depth);
+        System.out.println("globals: ");
+        globals.display(depth + 1);
+        functions.display(depth + 1);
     }
 }
 
@@ -63,14 +64,61 @@ class Declaration {
     }
 }
 
+// Functions = Funtion *
+// 확장 - 함수 기능 추가, main 함수 이외의 함수들을 위해 추가
+class Funtions extends ArrayList<Function> {    // ArrayList를 상속 받음
+    public Function getFunction(String name) {
+        for(Function temp : this)
+            if(temp.variable.toString().equals(name))
+                return temp;
+
+        return null;
+    }
+    public void display(int depth) {    // Functions 출력
+
+    }
+    public void display(int level) {
+        Display.println(level, "Functions:");
+
+        for (int i = 0; i < size(); i++) {
+            get(i).display(level + 1);
+            System.out.print("\n");
+        }
+    }
+}
+
+// Function = Type t; String id; Declarations params, locals; Block body
+// 함수 정의의 구성, 타입 함수이름 (매개변수 리스트) { 함수 몸체 }
+class Function {
+    Type type; Variable variable; Declarations params, locals; Block body;
+    Function(Type type, Variable variable, Declarations params, Declarations locals, Block body) {   // 함수 생성자
+        this.type = type;
+        this.variable = variable;
+        this.params = params;
+        this.locals = locals;
+        this.body = body;
+    }
+    public void display(int depth) { // display 함수 구현, 함수 내용 출력
+        Display.println(depth, "Function = " + variable + "; Return type = " + type);
+
+        Display.println(depth + 1, "params = ");
+        params.display(depth + 2);
+
+        Display.println(depth + 1, "locals = ");
+        locals.display(level + 2);
+
+        body.display(level + 1);
+    }
+}
+
 class Type {
-    // Type = int | bool | char | float
+    // Type = int | bool | char | float | void
     final static Type INT = new Type("int");
     final static Type BOOL = new Type("bool");
     final static Type CHAR = new Type("char");
     final static Type FLOAT = new Type("float");
     final static Type UNDEFINED = new Type("undef");
-    final static Type VOID = new Type("void");  // void type 추가
+    final static Type VOID = new Type("void");  // void type 추가, void function
 
     private String id;
 
