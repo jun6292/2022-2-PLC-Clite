@@ -69,7 +69,8 @@ class Type {
     final static Type BOOL = new Type("bool");
     final static Type CHAR = new Type("char");
     final static Type FLOAT = new Type("float");
-    // final static Type UNDEFINED = new Type("undef");
+    final static Type UNDEFINED = new Type("undef");
+    final static Type VOID = new Type("void");  // void type 추가
 
     private String id;
 
