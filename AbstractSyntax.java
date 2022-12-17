@@ -68,7 +68,7 @@ class Declaration {
 // 확장 - 함수 기능 추가, main 함수 이외의 함수들을 위해 추가
 class Funtions extends ArrayList<Function> {    // ArrayList를 상속 받음
     public Function getFunction(String name) {
-        for(Function temp : this)
+        for (Function temp : this)
             if(temp.variable.toString().equals(name))
                 return temp;
 
@@ -77,11 +77,11 @@ class Funtions extends ArrayList<Function> {    // ArrayList를 상속 받음
     public void display(int depth) {    // Functions 출력
 
     }
-    public void display(int level) {
-        Display.println(level, "Functions:");
+    public void display(int depth) {
+        Display.println(depth, "Functions:");
 
         for (int i = 0; i < size(); i++) {
-            get(i).display(level + 1);
+            get(i).display(depth + 1);
             System.out.print("\n");
         }
     }

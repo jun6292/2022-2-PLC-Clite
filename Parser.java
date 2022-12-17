@@ -35,10 +35,17 @@ public class Parser {
     }
 
     public Program program() {
+        Declarations globals = new Declarations();  // 전역 변수
+        Function function = new Functions();    //
+        while (isType()) {
+            FunctionOrGlobal(globals, functions);
+        }
         // Program --> void main ( ) '{' Declarations Statements '}'
         TokenType[] header = { TokenType.Int, TokenType.Main, TokenType.LeftParen, TokenType.RightParen };
         for (int i = 0; i < header.length; i++) // bypass "int main ( )"
             match(header[i]);
+        Declarations locals = declarations();
+
         match(TokenType.LeftBrace);
 
         // student exercise
