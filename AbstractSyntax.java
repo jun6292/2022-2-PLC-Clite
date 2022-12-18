@@ -3,10 +3,24 @@
 
 import java.util.*;
 
+class Indenter {    // 들여쓰기를 표현하는 클래스
+    public int level;
+    public Indenter(int nextLevel) {
+        level = nextLevel;
+    }
+    public void display(String msg) {
+        String space = "";
+        System.out.println();
+        for (int i = 0; i < level; i++)
+            space += "  ";  // level이 높아질수록 스페이스 두 번씩 공백 증가
+        System.out.print(space + msg);
+    }
+}
+
 class Program {
     // Program = Declarations globals; Functions functions
     Declarations globals;
-    Funtions functions;
+    Functions functions;
 
     Program (Declarations g, Functions f) {
         globals = g;
@@ -15,36 +29,32 @@ class Program {
 
     void printDisplay(String filename) {    // 파일명을 받아서 .output 파일의 도입부 출력
         System.out.println("Begin parsing... programs/" + filename);
-        System.out.println();
     }
-    void display(int depth) {   // Program의 AbstractSyntaxTree 출력
+    void display() {   // Program의 AbstractSyntaxTree 출력
         // student exercise
-        for (int i = 0; i < depth; i++) {
-            System.out.print("  ");
-        }
-        System.out.println("Program (abstract syntax):");
-        System.out.println("globals: ");
-        globals.display(depth + 1);
-        functions.display(depth + 1);
+        int level = 0;
+        Indenter indent = new Indenter(level);
+        indent.display("Program (abstract syntax): ");
+        level += 1;
+        indent = new Indenter(level);
+        indent.display("globals: ");
+        globals.display(level);
+        functions.display(level);
+        // System.out.println();
     }
 }
 
 class Declarations extends ArrayList<Declaration> {
     // Declarations = Declaration*
     // (a list of declarations d1, d2, ..., dn)
-    public void display(int depth) {    // Declarations 출력
-        for (int i = 0; i < depth; ++i) {
-            System.out.print("  ");
-        }
-        System.out.println("Declarations: ");
-        for (int i = 0; i < depth; ++i) {
-            System.out.print("    ");
-        }
-        System.out.print("Declarations = {");
-        for (int i = 0; i < size(); ++i) {
-            get(i).display();
-            if (i != size() - 1)    // <>, <> 처리
-                System.out.print(", ");
+    public void display(int level) {    // Declarations 출력
+        Indenter indent = new Indenter(level);
+        indent.display(" {");
+        String sep = "";
+        for (Declaration d : this) {
+            System.out.print(sep);
+            d.display();
+            sep = ", ";
         }
         System.out.println("}");
     }
@@ -66,23 +76,13 @@ class Declaration {
 
 // Functions = Funtion *
 // 확장 - 함수 기능 추가, main 함수 이외의 함수들을 위해 추가
-class Funtions extends ArrayList<Function> {    // ArrayList를 상속 받음
-    public Function getFunction(String name) {
-        for (Function temp : this)
-            if(temp.variable.toString().equals(name))
-                return temp;
-
-        return null;
-    }
-    public void display(int depth) {    // Functions 출력
-
-    }
-    public void display(int depth) {
-        Display.println(depth, "Functions:");
-
-        for (int i = 0; i < size(); i++) {
-            get(i).display(depth + 1);
-            System.out.print("\n");
+class Functions extends ArrayList<Function> {    // ArrayList를 상속 받는 Funtions
+    public void display(int level) {    // Functions 출력
+        Indenter indent = new Indenter(level);
+        indent.display("Functions: ");
+        for (Function f : this) {
+            f.display(level + 1);
+            System.out.println();
         }
     }
 }
@@ -90,24 +90,31 @@ class Funtions extends ArrayList<Function> {    // ArrayList를 상속 받음
 // Function = Type t; String id; Declarations params, locals; Block body
 // 함수 정의의 구성, 타입 함수이름 (매개변수 리스트) { 함수 몸체 }
 class Function {
-    Type type; Variable variable; Declarations params, locals; Block body;
-    Function(Type type, Variable variable, Declarations params, Declarations locals, Block body) {   // 함수 생성자
-        this.type = type;
-        this.variable = variable;
-        this.params = params;
-        this.locals = locals;
-        this.body = body;
+    Type type;
+    Variable variable;
+    Declarations params, locals;
+    Block body;
+
+    Function(Type t, Variable var, Declarations ps, Declarations ls, Block b) {   // 함수의 구성 요소
+        type = t;
+        variable = var;
+        params = ps;
+        locals = ls;
+        body = b;
     }
-    public void display(int depth) { // display 함수 구현, 함수 내용 출력
-        Display.println(depth, "Function = " + variable + "; Return type = " + type);
 
-        Display.println(depth + 1, "params = ");
-        params.display(depth + 2);
+    public void display(int level) { // display 함수 구현, 함수 내용 출력
+        Indenter indent = new Indenter(level);
+        indent.display("Function = " + variable + "; Return type = " + type);
+        level += 1;
+        indent = new Indenter(level);
+        indent.display("params = ");
+        params.display(level);
 
-        Display.println(depth + 1, "locals = ");
-        locals.display(level + 2);
+        indent.display("locals = ");
+        locals.display(level);
 
-        body.display(level + 1);
+        body.display(level);
     }
 }
 
@@ -129,11 +136,16 @@ class Type {
 
 abstract class Statement {
     // Statement = Skip | Block | Assignment | Conditional | Loop
-    public void display(int depth) {    // display 함수 오버라이딩
+    public void display (int level) {
+        Indenter indent = new Indenter(level);
+        indent.display(getClass().toString().substring(6) + ": ");
     }
 }
 
 class Skip extends Statement {
+    public void display (int level) {
+        super.display(level);
+    }
 }
 
 class Block extends Statement {
@@ -141,13 +153,10 @@ class Block extends Statement {
     //         (a Vector of members)
     public ArrayList<Statement> members = new ArrayList<Statement>();
 
-    public void display(int depth) {    // Block 부분 출력
-        for (int i = 0; i < depth; ++i) {
-            System.out.print("  ");
-        }
-        System.out.println("Block: ");
-        for (int j = 0; j < members.size(); j++)    // 자식노드 공백추가
-            members.get(j).display(depth + 1);
+    public void display(int level) {    // Block 요소 출력
+        super.display(level);
+        for (Statement s : members)
+            s.display(level + 1);
     }
 }
 
@@ -161,13 +170,10 @@ class Assignment extends Statement {
         source = e;
     }
 
-    public void display(int depth) {    // Assignment 부분 출력
-        for (int i = 0; i < depth; ++i) {
-            System.out.print("  ");
-        }
-        System.out.println("Assignement: ");
-        target.display(++depth);
-        source.display(depth);
+    public void display (int level) {   // assignment 출력
+        super.display(level);
+        target.display(level+1);
+        source.display(level+1);
     }
 }
 
@@ -185,13 +191,11 @@ class Conditional extends Statement {
         test = t; thenbranch = tp; elsebranch = ep;
     }
 
-    public void display(int depth) {    // if 구문 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("IfStatement: ");
-        test.display(++depth);
-        thenbranch.display(depth);
-        elsebranch.display(depth);
+    public void display (int level) {   // conditional 출력
+        super.display(level);
+        test.display(level+1);
+        thenbranch.display(level+1);
+        elsebranch.display(level+1);
     }
 }
 
@@ -204,21 +208,72 @@ class Loop extends Statement {
         test = t; body = b;
     }
 
-    public void display(int depth) {    // loop 구문 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("Loop: ");
-        test.display(++depth);
-        body.display(depth);
+    public void display (int level) {   // loop 요소 출력
+        super.display(level);
+        test.display(level+1);
+        body.display(level+1);
+    }
+}
+class Return extends Statement {
+    Variable target;
+    Expression result;
+    Return(Variable target, Expression result) {
+        this.target = target;
+        this.result = result;
+    }
+    public void display(int level) {
+        super.display(level);
+        target.display(level + 1);
+        result.display(level + 1);
     }
 }
 
+// Expressions = Expression*
+class Expressions extends ArrayList<Expression> {
+    public void display(int level) {
+        Indenter indent = new Indenter(level);
+        indent.display("args = ");
+        for (Expression exp : this)
+            exp.display(level + 1);
+    }
+}
 abstract class Expression {
     // Expression = Variable | Value | Binary | Unary
-    public void display(int depth) {    // display 함수 오버라이딩
+    public void display(int level) {    // sub클래스에서 display 함수 오버라이딩
+        Indenter indent = new Indenter(level);
+        indent.display(getClass().toString().substring(6) + ": ");
     }
 }
 
+class StatementCall extends Statement { // Statement에 call 추가: void function
+    String id;
+    Expressions args;
+    StatementCall(String id, Expressions e) {
+        this.id = id;
+        args = e;
+    }
+    public void display(int level) {
+        Indenter indent = new Indenter(level);
+        indent.display(getClass().toString().substring(6) + ": " + id);
+        args.display(level + 1);
+    }
+}
+
+class ExpressionCall extends Expression{    // Expression에 call 추가: non-void function
+    String id;
+    Expressions args;
+
+    ExpressionCall(String id, Expressions e){
+        this.id = id;
+        args = e;
+    }
+
+    public void display(int level){
+        Indenter indent = new Indenter(level);
+        indent.display(getClass().toString().substring(6) + ": " + id);
+        args.display(level + 1);
+    }
+}
 class Variable extends Expression {
     // Variable = String id
     private String id;
@@ -234,10 +289,9 @@ class Variable extends Expression {
 
     public int hashCode ( ) { return id.hashCode( ); }
 
-    public void display(int depth) {    // Variable과 id 출력
-        for (int i = 0; i < depth; i++)
-            System.out.print("  ");
-        System.out.println("Variable: " + id);
+    public void display (int level) {   // Variable id 출력
+        super.display(level);
+        System.out.print(id);
     }
 }
 
@@ -297,10 +351,9 @@ class IntValue extends Value {
         return "" + value;
     }
 
-    public void display(int depth) {    // IntValue 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("IntValue: " + value);
+    public void display (int level) {   // int value 출력
+        super.display(level);
+        System.out.print(value);
     }
 }
 
@@ -326,12 +379,10 @@ class BoolValue extends Value {
         return "" + value;
     }
 
-    public void display(int depth) {    // BoolValue 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("BoolValue: " + value);
+    public void display (int level) {   // bool value 출력
+        super.display(level);
+        System.out.print(value);
     }
-
 }
 
 class CharValue extends Value {
@@ -351,10 +402,9 @@ class CharValue extends Value {
         return "" + value;
     }
 
-    public void display(int depth) {    // CharValue 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("CharValue: " + value);
+    public void display (int level) {   // char value 출력
+        super.display(level);
+        System.out.print(value);
     }
 }
 
@@ -375,12 +425,10 @@ class FloatValue extends Value {
         return "" + value;
     }
 
-    public void display(int depth) {    // FloatValue 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("FloatValue: " + value);
+    public void display (int level) {   // float value 출력
+        super.display(level);
+        System.out.print(value);
     }
-
 }
 
 class Binary extends Expression {
@@ -392,13 +440,11 @@ class Binary extends Expression {
         op = o; term1 = l; term2 = r;
     } // binary
 
-    public void display(int depth) {    // binary 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("Binary:");
-        op.display(++depth);
-        term1.display(depth);
-        term2.display(depth);
+    public void display (int level) {   // binary 출력
+        super.display(level);
+        op.display(level+1);
+        term1.display(level+1);
+        term2.display(level+1);
     }
 }
 
@@ -411,12 +457,10 @@ class Unary extends Expression {
         op = o; term = e;
     } // unary
 
-    public void display(int depth) {    // Unary 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("Unary: ");
-        op.display(++depth);
-        term.display(depth);
+    public void display (int level) {   // Unary 출력
+        super.display(level);
+        op.display(level+1);
+        term.display(level+1);
     }
 }
 
@@ -566,9 +610,8 @@ class Operator {
         return map (boolMap, op);
     }
 
-    public void display(int depth) {    // Operator 출력
-        for (int i = 0; i < depth; ++i)
-            System.out.print("  ");
-        System.out.println("Operator: " + val);
+    public void display (int level) {
+        Indenter indent = new Indenter(level);
+        indent.display(getClass().toString().substring(6) + ": " + val);
     }
 }
