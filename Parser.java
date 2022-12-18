@@ -57,7 +57,7 @@ public class Parser {
 
         match(TokenType.RightBrace);    // '}'
         // main 함수 정보를 functions에 추가
-        functions.add(new Function(Type.INT, new Variable("main"), new Declarations(), locals, body));
+        functions.add(new Function(Type.INT, "main", new Declarations(), locals, body));
         return new Program(globals, functions);
     }
 
@@ -100,7 +100,7 @@ public class Parser {
             }   // Statements
 
             match(TokenType.RightBrace);    // }
-            functions.add(new Function(t, var, params, locals, b)); // functions에 추가
+            functions.add(new Function(t, var.toString(), params, locals, b)); // functions에 추가
         }
         else {    // globals 일 때
             globals.add(new Declaration(var, t));
@@ -221,17 +221,20 @@ public class Parser {
         return b; // block 반환
     }
 
-    private StatementCall callStatement(Variable var){  // callStatement 추가
-        match(TokenType.LeftParen);
+    private Call callStatement(Variable var){  // callStatement 추가
+        // CallStatement -> Call;
+        // Call -> Identifier ( Arguments )
+        match(TokenType.LeftParen); // (
         Expressions args = new Expressions();
+        // ) 괄호 닫는 것 까지 돌면서 Arguments 추가
         while(!(token.type().equals(TokenType.RightParen))){
             args.add(expression());
             if (!token.type().equals(TokenType.RightParen))
                 match(TokenType.Comma);
         }
-        match(TokenType.RightParen);
-        match(TokenType.Semicolon);
-        return new StatementCall(var.toString(), args);   // 함수명(인자, 인자, ...);
+        match(TokenType.RightParen);    // )
+        match(TokenType.Semicolon);     // ;
+        return new Call(var.toString(), args);   // 함수명(인자, 인자, ...);
     }
 
     private Return returnStatement(){   // returnStatement 추가
