@@ -1,10 +1,10 @@
 # 2022-2 Programming Language Concept
 
 `JAVA`
-- #1 Parser
-- #2 StaticTypeCheck (추가구현: Detect all type errors ✅)
-- #3 Semantics (추가구현 : DynamicTyping ✅)
-- ✨ #4 Function Implementation ✨
+#1 Parser
+#2 StaticTypeCheck (추가구현: Detect all type errors ✅)
+#3 Semantics (추가구현 : DynamicTyping ✅)
+#4 Function Implementation
 
 with test programs (*.cpp)
 
